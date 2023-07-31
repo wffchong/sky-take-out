@@ -34,6 +34,7 @@ public interface EmployeeMapper {
      * 根据 id 修改员工信息
      * @param employee
      */
+    @AutoFill(value = OperationType.UPDATE)
     void update(Employee employee);
 
     @Select("select * from employee where id = #{id}")
