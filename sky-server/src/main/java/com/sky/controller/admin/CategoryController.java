@@ -3,6 +3,7 @@ package com.sky.controller.admin;
 import com.sky.entity.Category;
 import com.sky.result.Result;
 import com.sky.service.CategoryService;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,7 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping("/list")
+    @ApiOperation("根据类型查询分类")
     public Result<List<Category>> list(Integer type) {
        List<Category> list = categoryService.list(type);
        return Result.success(list);
