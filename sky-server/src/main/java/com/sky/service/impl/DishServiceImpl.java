@@ -11,6 +11,7 @@ import com.sky.entity.DishFlavor;
 import com.sky.exception.DeletionNotAllowedException;
 import com.sky.mapper.DishFlavorMapper;
 import com.sky.mapper.DishMapper;
+import com.sky.mapper.SetmealDishMapper;
 import com.sky.result.PageResult;
 import com.sky.service.DishService;
 import com.sky.vo.DishVO;
@@ -30,6 +31,9 @@ public class DishServiceImpl implements DishService {
     private DishMapper dishMapper;
     @Autowired
     private DishFlavorMapper dishFlavorMapper;
+
+    @Autowired
+    private SetmealDishMapper setmealDishMapper;
 
     @Override
     public void saveWithFlavor(DishDTO dishDTO) {
@@ -78,15 +82,24 @@ public class DishServiceImpl implements DishService {
         // 判断是否存在停售的菜品
         for (Long id : ids) {
             Dish dish = dishMapper.getById(id);
-            if (dish.getStatus() == StatusConstant.DISABLE) {
+            if (dish.getStatus() == StatusConstant.ENABLE) {
                 // 当前菜品处于起售中，不能删除
                 throw new DeletionNotAllowedException(MessageConstant.DISH_ON_SALE);
             }
         }
 
-        // TODO: 判断有没有关联套餐
+        // 判断有没有关联套餐
+        List<Long> setmealIds = setmealDishMapper.getSetmealIdsByDishIds(ids);
+        if (!setmealIds.isEmpty()) {
+            // 当前菜品被套餐关联了，不能删除
+            throw new DeletionNotAllowedException(MessageConstant.DISH_BE_RELATED_BY_SETMEAL);
+        }
 
-
-        dishMapper.deleteBatch(ids);
+        // 删除菜品中的数据
+        for (Long id : ids) {
+            dishMapper.deleteById(id);
+            // 删除菜品关联的口味数据
+            dishFlavorMapper.deleteByDishId(id);
+        }
     }
 }
