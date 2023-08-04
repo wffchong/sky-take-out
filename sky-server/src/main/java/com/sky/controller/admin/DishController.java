@@ -57,4 +57,11 @@ public class DishController {
         dishService.updateWithFlavor(dishDto);
         return Result.success();
     }
+
+    @PostMapping("/status/{state}")
+    @ApiOperation("修改菜品状态")
+    public Result startOrStop(@PathVariable Integer state, Long id) {
+        dishService.startOrStop(state, id);
+        return Result.success();
+    }
 }
