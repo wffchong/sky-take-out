@@ -17,4 +17,6 @@ public interface SetmealService {
     void updateWithDish(SetmealDTO setmealDTO);
 
     void deleteBatch(List<Long> ids);
+
+    void startOrStop(Integer state, Long id);
 }

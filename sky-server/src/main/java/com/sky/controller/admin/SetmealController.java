@@ -62,4 +62,11 @@ public class SetmealController {
         setmealService.deleteBatch(ids);
         return Result.success();
     }
+
+    @PostMapping("/status/{state}")
+    @ApiOperation("修改套餐状态")
+    public Result startOrStop(@PathVariable Integer state, Long id) {
+        setmealService.startOrStop(state, id);
+        return Result.success();
+    }
 }
