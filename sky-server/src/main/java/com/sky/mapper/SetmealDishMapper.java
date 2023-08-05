@@ -4,6 +4,7 @@ import com.sky.annotation.AutoFill;
 import com.sky.entity.SetmealDish;
 import com.sky.enumeration.OperationType;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -21,4 +22,12 @@ public interface SetmealDishMapper {
 
     @AutoFill(OperationType.INSERT)
     void insertBatch(List<SetmealDish> setmealDishes);
+
+    /**
+     * 根据套餐id获取菜品
+     *
+     * @param setmealId
+     */
+    @Select("select * from setmeal_dish where setmeal_id = #{setmealId}")
+    List<SetmealDish> getDishBySetmealId(Long setmealId);
 }
