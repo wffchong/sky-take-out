@@ -1,6 +1,8 @@
 package com.sky.controller.admin;
 
+import com.sky.dto.CategoryPageQueryDTO;
 import com.sky.entity.Category;
+import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.CategoryService;
 import io.swagger.annotations.ApiOperation;
@@ -23,7 +25,14 @@ public class CategoryController {
     @GetMapping("/list")
     @ApiOperation("根据类型查询分类")
     public Result<List<Category>> list(Integer type) {
-       List<Category> list = categoryService.list(type);
-       return Result.success(list);
+        List<Category> list = categoryService.list(type);
+        return Result.success(list);
+    }
+
+    @GetMapping("/page")
+    @ApiOperation("分页查询")
+    public Result<PageResult> page(CategoryPageQueryDTO categoryPageQueryDTO) {
+        PageResult pageResult = categoryService.pageQuery(categoryPageQueryDTO);
+        return Result.success(pageResult);
     }
 }
