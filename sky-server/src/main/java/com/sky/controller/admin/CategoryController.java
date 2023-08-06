@@ -1,5 +1,6 @@
 package com.sky.controller.admin;
 
+import com.sky.dto.CategoryDTO;
 import com.sky.dto.CategoryPageQueryDTO;
 import com.sky.entity.Category;
 import com.sky.result.PageResult;
@@ -8,10 +9,7 @@ import com.sky.service.CategoryService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,5 +32,12 @@ public class CategoryController {
     public Result<PageResult> page(CategoryPageQueryDTO categoryPageQueryDTO) {
         PageResult pageResult = categoryService.pageQuery(categoryPageQueryDTO);
         return Result.success(pageResult);
+    }
+
+    @PutMapping()
+    @ApiOperation("修改分类信息")
+    public Result update(@RequestBody CategoryDTO categoryDTO) {
+        categoryService.update(categoryDTO);
+        return Result.success();
     }
 }
