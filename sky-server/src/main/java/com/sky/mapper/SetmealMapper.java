@@ -29,4 +29,7 @@ public interface SetmealMapper {
 
     @Delete("delete from setmeal where id = #{setmealId}")
     void deleteById(Long setmealId);
+
+    @Select("select count(id) from setmeal where category_id = #{categoryId}")
+    Integer countByCategoryId(Long categoryId);
 }

@@ -33,4 +33,7 @@ public interface DishMapper {
 
     @Select("select d.* from dish d LEFT JOIN setmeal_dish sd on d.id = sd.dish_id where sd.setmeal_id = #{setmealId}")
     List<Dish> getBySetmealId(Long setmealId);
+
+    @Select("select count(id) from dish where id = #{categoryId}")
+    Integer countByCategoryId(Long categoryId);
 }
