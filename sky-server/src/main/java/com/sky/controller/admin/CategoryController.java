@@ -55,4 +55,11 @@ public class CategoryController {
         categoryService.deleteById(id);
         return Result.success();
     }
+
+    @PostMapping("/status/{state}")
+    @ApiOperation("启用、禁用分类")
+    public Result startOrStop(@PathVariable Integer state, Long id) {
+        categoryService.startOrStop(state, id);
+        return Result.success();
+    }
 }

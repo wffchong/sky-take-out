@@ -17,4 +17,6 @@ public interface CategoryService {
     void save(CategoryDTO categoryDTO);
 
     void deleteById(Long id);
+
+    void startOrStop(Integer state, Long id);
 }

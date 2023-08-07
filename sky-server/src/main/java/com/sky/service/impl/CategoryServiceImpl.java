@@ -83,4 +83,13 @@ public class CategoryServiceImpl implements CategoryService {
         // 都没有的话就可以删除了
         categoryMapper.deleteById(id);
     }
+
+    @Override
+    public void startOrStop(Integer state, Long id) {
+        Category category = new Category();
+        category.setStatus(state);
+        category.setId(id);
+
+        categoryMapper.update(category);
+    }
 }
