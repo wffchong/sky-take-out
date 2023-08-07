@@ -20,6 +20,13 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
+    @PostMapping()
+    @ApiOperation("新增分类")
+    public Result save(@RequestBody CategoryDTO categoryDTO) {
+        categoryService.save(categoryDTO);
+        return Result.success();
+    }
+
     @GetMapping("/list")
     @ApiOperation("根据类型查询分类")
     public Result<List<Category>> list(Integer type) {
