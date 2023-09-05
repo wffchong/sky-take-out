@@ -144,4 +144,9 @@ public class SetmealServiceImpl implements SetmealService {
         setmeal.setStatus(state);
         setmealMapper.update(setmeal);
     }
+
+    @Override
+    public List<Setmeal> list(Setmeal setmeal) {
+        return setmealMapper.list(setmeal);
+    }
 }
