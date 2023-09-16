@@ -109,4 +109,14 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
 
     }
+
+    @Override
+    public void cleanShoppingCart() {
+        // 获取当前用户的id
+        Long userId = BaseContext.getCurrentId();
+        ShoppingCart cart = ShoppingCart.builder()
+                .userId(userId)
+                .build();
+        shoppingCartMapper.deleteByUserId(userId);
+    }
 }
